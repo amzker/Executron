@@ -1,0 +1,16 @@
+[Default]
+username = amzker
+asistant_name = paper
+synames = ["paper","pepper","papar","peppar","papper"]
+
+tr_model_path = ./modules/vosk/vosk-model-small-en-us-0.15
+screenshot_dir = ./screenshots/
+modules_dir = modules
+
+
+codegrepper_title_url = https://www.codegrepper.com/api/search.php?q=
+codegrepper_title_q = &search_options=search_titles
+codegrepper_alt_term_url = https://www.codegrepper.com/api/search_term_alternatives.php?q=
+
+google_qurl = https://www.google.com/search?q=
+gimage_reverse_url = https://lens.google.com/upload

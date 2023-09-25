@@ -1,0 +1,21 @@
+- change search class to codesearch
+- create modules store where user can submit thier modules and people can use it 
+- make code OS independent 
+- train contex_recognition on huge dataset , and use decision tree
+    - rather than just predicting action, we can make it to predict action within action or which action to do next
+    for ex:
+        "what is this image on my screen, and please notify me after you recognize this image and also save it to telegram"
+            now so action order will be 
+                screenshot->reverse_image_search->notification-> telegram_cli_upload
+      training this way will allow extreame use cases and can even open possibility for OS command execution based on user history
+
+      so basically first i will need to make chunks of code or module for each task and then need to train model on those chunks 
+
+
+modules
+
+open
+    class:
+        - webbrowser
+        - system apps
+
