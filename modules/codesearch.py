@@ -16,75 +16,55 @@ codegrepper_title_q = config.get("Default","codegrepper_title_q")
 codegrepper_alt_term_url = config.get("Default","codegrepper_alt_term_url")
 google_qurl = config.get("Default","google_qurl")
 
-def sorter(data):
-    rdf = pd.DataFrame()
-    upv = []
-    ans = []
-    for i in range(len(data)):
-        upv.append(data[i]["upvotes"])
-        ans.append(data[i]["answer"])
-    rdf["upvotes"] = upv
-    rdf["answer"] = ans
-    rdf.sort_values(by=["upvotes"], inplace = True, ascending=False, ignore_index=True)
-    rdf.drop(rdf.columns[0], axis=1, inplace=True)
-    return rdf
 
-def altparser(data):
-    altdf = pd.DataFrame()
-    score = []
-    term = []
-    for i in range(len(data)):
-        score.append(data[i]["score"])
-        term.append(data[i]["term"])
-    altdf["score"] = score
-    altdf["term"] = term
-    altdf.sort_values(by=["score"], inplace = True, ascending=False, ignore_index=True)
-    return altdf
+def sort_answers(data):
+    df = pd.DataFrame(data)
+    df.sort_values(by="upvotes", ascending=False, inplace=True, ignore_index=True)
+    return df["answer"].iloc[0]
 
+def sort_alternative_terms(data):
+    df = pd.DataFrame(data)
+    df.sort_values(by="score", ascending=False, inplace=True, ignore_index=True)
+    return df["term"].iloc[0]
 
-def qsearch(rdata):
-    rdf = sorter(rdata)
-    code = rdf.at[0, 'answer']
+def copy_to_clipboard(code):
     pyperclip.copy(code)
     gui.click()
     gui.hotkey('ctrl', 'v')
-    rdf = pd.DataFrame(None)
-    notification("copied code to clipboard")
+    notification("Code copied to clipboard")
 
-        
-def gsearch(altdf):
-    search = parser.quote(altdf["term"][0])
-    notification("I couldn't find any code,so googling")
-    webbrowser.open(google_qurl+search)
-    for i in range(int(len(altdf["term"])/5)):
-        webbrowser.open(google_qurl+parser.quote(altdf["term"][i]))
-
-        
+def search_google(term):
+    search = parser.quote(term)
+    webbrowser.open(google_qurl + search)
+    notification("Couldn't find any code, so searching on Google")
 
 def codesearch(term):
     term = term.replace("search", "")
     search = parser.quote(term)
-    titleurl = codegrepper_title_url+search+codegrepper_title_q
-    alturl = codegrepper_alt_term_url+search
-    rdata = requests.get(titleurl, verify=False).json()
-    rdata = rdata["answers"]
-    
-    if len(rdata) == 0:
-        notification("i couldn't find the'code, trying again")
-        altdata = requests.get(alturl, verify=False).json()
-        altdata = altdata["related_terms"]
-        altdf = altparser(altdata)    
-        search = parser.quote(altdf["term"][0])
-        titleurl = codegrepper_title_url+search+codegrepper_title_q
-        rdata = requests.get(titleurl, verify=False).json()
-        rdata = rdata["answers"]
-        
-        if len(rdata) == 0:
-            gsearch(altdf)
-        
-        else:
-            qsearch(rdata)        
-    
-    else:
-        qsearch(rdata)
+    title_url = codegrepper_title_url + search + codegrepper_title_q
+    alt_url = codegrepper_alt_term_url + search
 
+    title_response = requests.get(title_url, verify=False)
+    title_data = title_response.json().get("answers", [])
+
+    if not title_data:
+        notification("Couldn't find any code, trying alternative terms")
+        alt_response = requests.get(alt_url, verify=False)
+        alt_data = alt_response.json().get("related_terms", [])
+
+        if alt_data:
+            alt_term = sort_alternative_terms(alt_data)
+            title_url = codegrepper_title_url + parser.quote(alt_term) + codegrepper_title_q
+            title_response = requests.get(title_url, verify=False)
+            title_data = title_response.json().get("answers", [])
+
+            if not title_data:
+                search_google(alt_data)
+            else:
+                code = sort_answers(title_data)
+                copy_to_clipboard(code)
+        else:
+            search_google(term)
+    else:
+        code = sort_answers(title_data)
+        copy_to_clipboard(code)

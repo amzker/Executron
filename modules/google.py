@@ -25,8 +25,8 @@ def google(term):
         webbrowser.open(google_qurl+search)
 
 def save_image_from_clipboard():
-    fname = screenshot_dir+"/screenshot-"+str(datetime.datetime.now())+".png"
-    filePath = os.path.abspath(fname)
+    fname = "screenshot-" + str(datetime.datetime.now()) + ".png"
+    filePath = os.path.join(screenshot_dir, fname)
     image = tkinter.Tk().clipboard_get(type='image/png') 
  
     #_______________________________________________________________
