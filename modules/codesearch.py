@@ -1,6 +1,5 @@
 import pandas as pd
 import pyperclip
-import pyautogui as gui
 import webbrowser
 from .notification import notification 
 import requests
@@ -29,8 +28,6 @@ def sort_alternative_terms(data):
 
 def copy_to_clipboard(code):
     pyperclip.copy(code)
-    gui.click()
-    gui.hotkey('ctrl', 'v')
     notification("Code copied to clipboard")
 
 def search_google(term):

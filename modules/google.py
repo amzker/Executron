@@ -24,31 +24,7 @@ def google(term):
         search = parser.quote(term)
         webbrowser.open(google_qurl+search)
 
-def save_image_from_clipboard():
-    fname = "screenshot-" + str(datetime.datetime.now()) + ".png"
-    filePath = os.path.join(screenshot_dir, fname)
-    image = tkinter.Tk().clipboard_get(type='image/png') 
- 
-    #_______________________________________________________________
-    #https://stackoverflow.com/a/59862864 explaination is there.:))))
-    b = bytearray()
-    h = ''
-    for c in image:
-        if c == ' ':
-            try:
-                b.append(int(h, 0))
-            except Exception as e:
-                print('Exception:{}'.format(e))
-            h = ''
-        else:
-            h += c
 
-    image = b
-    #______________________________________________________________
-    with open(filePath, 'wb') as f:
-        f.write(image)
-        f.close()
-    return filePath
         
 def searchimg(filePath):
     searchUrl = gimage_reverse_url

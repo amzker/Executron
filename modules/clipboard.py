@@ -5,8 +5,11 @@ from tkinter import ttk, filedialog
 import pyperclip
 from PIL import Image, ImageTk
 import json
-from .google import google, save_image_from_clipboard, searchimg
 from .notification import notification
+import platform
+import subprocess
+import os
+import datetime
 
 
 clipboard_history = []
@@ -15,39 +18,82 @@ clipboard_history = []
 listbox = None
 image_listbox = None
 monitoring_clipboard = False
+global listbox, image_listbox, monitoring_clipboard
 
-def clipboard(term):
-    global listbox, image_listbox, monitoring_clipboard
+
+
+def add_imagepath_to_clipboard_history(filePath):
+    image_entry = "image:" + filePath
+    if image_entry not in clipboard_history:
+        clipboard_history.append(image_entry)
+
+
+def add_text_to_clipboard_history(text):
+    if text not in clipboard_history:
+        clipboard_history.append(text)
+        
+def copy_text_to_clipboard(text):
+    pyperclip.copy(text)
+    add_text_to_clipboard_history(text)
+
+def copy_text_from_clipboard(placeholder):
     data = pyperclip.paste()
-    if "image" in term:
-        filepath = save_image_from_clipboard()
-        searchimg(filepath)
-        image_entry = "image:" + filepath
-        if image_entry not in clipboard_history:
-            clipboard_history.append(image_entry)
-        update_tabs()
-    elif "show" in term:
-        display_clipboard_history()
-    elif "monitoring" in term:
-        if not monitoring_clipboard:
-            monitoring_clipboard = True
-            start_clipboard_monitoring()
-            notification("clipboard monitoring is started")
-    elif "stop" in term:
-        monitoring_clipboard = False
-        notification("clipboard monitoring is stopped")
-    else:
-        if data not in clipboard_history:
-            clipboard_history.append(data)
-        google(data)
-        update_tabs()
+    return data
+    
+def copy_image_to_clipboard(image_path):
+    # For Linux
+    if platform.system() == "Linux":
+        subprocess.run(['xclip', '-selection', 'clipboard', '-t', 'image/png', image_path])
+    # For Windows
+    # i think this is wrong code for windows , i dont have windows so cant test it 
+    elif platform.system() == "Windows":
+        import win32clipboard
+        from io import BytesIO
+        img_io = BytesIO()
+        image_path.save(img_io, 'PNG')
+        img_data = img_io.getvalue()
+        win32clipboard.OpenClipboard()
+        win32clipboard.EmptyClipboard()
+        win32clipboard.SetClipboardData(win32clipboard.CF_DIB, img_data)
+        win32clipboard.CloseClipboard()
+    
+    add_imagepath_to_clipboard_history(image_path)
 
+        
 
+def save_image_from_clipboard_and_copy_path():
+    fname = "screenshot-" + str(datetime.datetime.now()) + ".png"
+    filePath = os.path.join(screenshot_dir, fname)
+    image = tkinter.Tk().clipboard_get(type='image/png') 
+ 
+    #_______________________________________________________________
+    #https://stackoverflow.com/a/59862864 explaination is there.:))))
+    b = bytearray()
+    h = ''
+    for c in image:
+        if c == ' ':
+            try:
+                b.append(int(h, 0))
+            except Exception as e:
+                print('Exception:{}'.format(e))
+            h = ''
+        else:
+            h += c
+
+    image = b
+    #______________________________________________________________
+    with open(filePath, 'wb') as f:
+        f.write(image)
+        f.close()
+    add_imagepath_to_clipboard_history(filePath)
+    return filePath
 
 def start_clipboard_monitoring():
     def monitor_clipboard():
+
         previous_clipboard = pyperclip.paste()
         while monitoring_clipboard:
+            notification("clipboard monitoring is started")
             current_clipboard = pyperclip.paste()
             if current_clipboard != previous_clipboard:
                 clipboard_history.append(current_clipboard)
@@ -58,6 +104,11 @@ def start_clipboard_monitoring():
     clipboard_monitor_thread = threading.Thread(target=monitor_clipboard)
     clipboard_monitor_thread.start()
 
+    
+def stop_clipboard_monitoring():
+    monitoring_clipboard = False
+    notification("clipboard monitoring is stopped")
+    
 def save_history_to_file():
     file_path = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("JSON files", "*.json"), ("All files", "*.*")])
     if file_path:
