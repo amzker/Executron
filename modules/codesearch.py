@@ -1,10 +1,12 @@
 import pandas as pd
 import pyperclip
 import webbrowser
+from .browser import google_search
 from .notification import notification 
 import requests
 import urllib.parse as parser
 from urllib.request import urlopen
+
 import configparser
 config = configparser.ConfigParser()
 config.read("config.paper")
@@ -57,11 +59,14 @@ def codesearch(term):
 
             if not title_data:
                 search_google(alt_data)
+                return None  
             else:
                 code = sort_answers(title_data)
-                copy_to_clipboard(code)
+                return code  
         else:
-            search_google(term)
+            google_search(term)
+            notification("didnt find code, so googling")
+            return None  
     else:
         code = sort_answers(title_data)
-        copy_to_clipboard(code)
+        return code  
