@@ -1,0 +1,36 @@
+X,Y
+take a screenshot,images.capture_screenshot
+capture my screen,images.capture_screenshot
+take screenshot,images.capture_screenshot
+save my screen,images.capture_screenshot
+send notiication hello,"notification.notification(""hello"")"
+create notification my name is paper,"notification.notification(""my name is paper"")"
+notify me when it's done,"notification.notification(""It's done"")"
+create a new notification with message see ya,"notification.notification(""see ya"")"
+stop listening,assistant_control.shutdown_assistant
+let's call it a day,assistant_control.shutdown_assistant
+stop the assistant,asistant_control.shutdown_assistant
+go to sleep,asistant_control.shutdown_assistant
+terminate yourself,asistant_control.shutdown_assistant
+display clipboard content,clipboard.display_clipboard_history
+show clipboard history,clipboard.display_clipboard_history
+display clipboard history,clipboard.display_clipboard_history()
+stop monitoring clipboard,clipboard.stop_clipboard_monitoring
+now you can stop clipboard monitoring,clipboard.stop_clipboard_monitoring
+start clipboard monitoring,clipboard.start_clipboard_monitoring
+open the image from clipboard,"clipboard.copy_image_from_clipboard_and_copy_path, Images.open_image"
+add this image to clipboard history,"clipboard.save_image_from_clipboard_and_copy_path,clipboard.add_imagepath_to_clipboard_history"
+search image from my clipboard,"clipboard.save_image_from_clipboard_and_copy_path,browser.search_image"
+take image from my clipboard and reverse it,"clipboard.save_image_from_clipboard_and_copy_path,browser.search_image"
+reverse search image from my clipboard,"clipboard.save_image_from_clipboard_and_copy_path,browser.search_image"
+google this code from my clipboard,"clipboard.copy_text_from_clipboard, browser.google_search_search"
+retrieve clipboard history,clipboard.display_clipboard_history
+show me clipboard contents,clipboard.display_clipboard_history
+display all clipboard entries,clipboard.display_clipboard_history
+begin clipboard tracking,clipboard.start_clipboard_monitoring
+start monitoring clipboard,clipboard.start_clipboard_monitoring
+activate clipboard tracking,clipboard.start_clipboard_monitoring
+search for 'Python' on Google,"browser.google_search(""Python"")"
+look up 'machine learning',"browser.google_search(""machine learning"")"
+find information about 'AI',"browser.google_search(""AI"")"
+browse 'best Python libraries',"browser.google_search(""best Python libraries"")"
