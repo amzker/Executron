@@ -1,0 +1,14 @@
+mapping,commands
+1,images.capture_screenshot
+2,asistant_control.shutdown_assistant
+3,clipboard.display_clipboard_history
+4,clipboard.stop_clipboard_monitoring
+5,clipboard.start_clipboard_monitoring
+6,clipboard.copy_image_from_clipboard
+7,images.open_image
+8,clipboard.save_image_from_clipboard_and_copy_path
+9,clipboard.add_imagepath_to_clipboard_history
+10,browser.search_image
+11,clipboard.copy_text_from_clipboard
+12,browser.google_search
+13,copy_image_to_clipboard
