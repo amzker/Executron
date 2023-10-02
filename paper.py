@@ -32,38 +32,6 @@ import warnings
 warnings.filterwarnings("ignore")
 
 
-# In[15]:
-
-
-
-def actions(term):
-    # Loop through the commands dictionary and try to find a matching key
-    for key, command_func in commands.items():
-        if key in term:
-            command_func(term)
-            break  # Stop searching after the first match
-
-            
-
-# dynamic_module_list
-
-
-commands = {}
-
-module_files = [f for f in os.listdir(modules_dir) if f.endswith('.py')]
-
-# Import modules and add their functions to the commands dictionary
-for module_file in module_files:
-    module_name = os.path.splitext(module_file)[0]
-    module_path = f'{modules_dir}.{module_name}'
-    module = importlib.import_module(module_path)
-
-    
-    # each module has a function with the same name as the module (e.g., screenshot.screenshot)
-    if hasattr(module, module_name):
-        commands[module_name] = getattr(module, module_name)
-
-
 # In[ ]:
 
 
@@ -116,10 +84,29 @@ try:
                             action = classify(recognized_text.lower())  
                             try:
                                 print(action)
-                                commands[action](recognized_text.lower())
+                                actions_to_execute = action.split(',')
+                                previous_output = None
+
+                                for action in actions_to_execute:
+                                    module_name, func_name = action.split('.')
+                                    module_path = f'{modules_dir}.{module_name}'
+                                    module = importlib.import_module(module_path)
+                                    command_func = getattr(module, func_name)
+
+                                    if previous_output:
+                                        # Use the previous function's output
+                                        previous_output = command_func(previous_output)
+                                    else:
+                                        # Execute the action without previous output
+                                        previous_output = command_func()
+
+                                # Store or use the final output as needed
+                                final_output = previous_output
+
                             except Exception as e:
                                 notification(str(e))
                                 print("Error:", str(e))
+
                 else:
                     print("No input sound")
 

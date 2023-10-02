@@ -37,7 +37,7 @@ def copy_text_to_clipboard(text):
     pyperclip.copy(text)
     add_text_to_clipboard_history(text)
 
-def copy_text_from_clipboard(placeholder):
+def copy_text_from_clipboard():
     data = pyperclip.paste()
     return data
 
@@ -60,7 +60,7 @@ def copy_image_to_clipboard(image_path):
 def save_image_from_clipboard_and_copy_path():
     fname = "screenshot-" + str(datetime.datetime.now()) + ".png"
     filePath = os.path.join(screenshot_dir, fname)
-    image = tkinter.Tk().clipboard_get(type='image/png')
+    image = tk.Tk().clipboard_get(type='image/png')
     b = bytearray()
     h = ''
     for c in image:
