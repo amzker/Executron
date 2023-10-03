@@ -1,0 +1,48 @@
+X,Y,mapping
+take a screenshot,images.capture_screenshot,1
+capture my screen,images.capture_screenshot,1
+take screenshot,images.capture_screenshot,1
+save my screen,images.capture_screenshot,1
+stop listening,asistant_control.shutdown_assistant,2
+let's call it a day,asistant_control.shutdown_assistant,2
+stop the assistant,asistant_control.shutdown_assistant,2
+go to sleep,asistant_control.shutdown_assistant,2
+terminate yourself,asistant_control.shutdown_assistant,2
+display clipboard content,clipboard.display_clipboard_history,3
+show clipboard history,clipboard.display_clipboard_history,3
+display clipboard history,clipboard.display_clipboard_history,3
+retrieve clipboard history,clipboard.display_clipboard_history,3
+show me clipboard contents,clipboard.display_clipboard_history,3
+display all clipboard entries,clipboard.display_clipboard_history,3
+stop monitoring clipboard,clipboard.stop_clipboard_monitoring,4
+now you can stop clipboard monitoring,clipboard.stop_clipboard_monitoring,4
+stop monitorin my clipboard,clipboard.stop_clipboard_monitoring,4
+start clipboard monitoring,clipboard.start_clipboard_monitoring,5
+begin clipboard tracking,clipboard.start_clipboard_monitoring,5
+start monitoring clipboard,clipboard.start_clipboard_monitoring,5
+activate clipboard tracking,clipboard.start_clipboard_monitoring,5
+open the image from clipboard,"clipboard.copy_image_from_clipboard,images.open_image","6,7"
+can you please open image from clipboard,"clipboard.copy_image_from_clipboard,images.open_image","6,7"
+show me image from clipboard,"clipboard.copy_image_from_clipboard,images.open_image","6,7"
+whats the image on my clipbaord,"clipboard.copy_image_from_clipboard,images.open_image","6,7"
+add this image to clipboard history,"clipboard.save_image_from_clipboard_and_copy_path,clipboard.add_imagepath_to_clipboard_history","8,9"
+add image to clipboard history from my clipboard,"clipboard.save_image_from_clipboard_and_copy_path,clipboard.add_imagepath_to_clipboard_history","8,9"
+save the image from my clipboard and add it to clipboard history,"clipboard.save_image_from_clipboard_and_copy_path,clipboard.add_imagepath_to_clipboard_history","8,9"
+search image from my clipboard,"clipboard.save_image_from_clipboard_and_copy_path,browser.search_image","8,10"
+take image from my clipboard and reverse it,"clipboard.save_image_from_clipboard_and_copy_path,browser.search_image","8,10"
+reverse search image from my clipboard,"clipboard.save_image_from_clipboard_and_copy_path,browser.search_image","8,10"
+save image from my clipboard and google it,"clipboard.save_image_from_clipboard_and_copy_path,browser.search_image","8,10"
+google image from my clipboard,"clipboard.save_image_from_clipboard_and_copy_path,browser.search_image","8,10"
+reverse image form my clipboard,"clipboard.save_image_from_clipboard_and_copy_path,browser.search_image","8,10"
+google this code from my clipboard,"clipboard.copy_text_from_clipboard,browser.google_search","11,12"
+google this text from my clipboard,"clipboard.copy_text_from_clipboard,browser.google_search","11,12"
+get me information about this text from my clipboard,"clipboard.copy_text_from_clipboard,browser.google_search","11,12"
+take a screenshot and open it,"images.capture_screenshot,images.open_image","1,7"
+open image from my clipboard and then take a screenshot,"clipboard.copy_image_from_clipboard,images.open_image,images.capture_screenshot","6,7,1"
+take a screenshot and then shutdown,"images.capture_screenshot,asistant_control.shutdown_assistant","1,2"
+take screenshot and google it,"images.capture_screenshot,browser.search_image","1,10"
+take a screenshot and reverse search it,"images.capture_screenshot,browser.search_image","1,10"
+reverse search this screenshot,"images.capture_screenshot,browser.search_image","1,10"
+copy screenshot to my clipboard,"images.capture_screenshot,copy_image_to_clipboard","1,13"
+take a screenshot and copy it to my clipboard,"images.capture_screenshot,copy_image_to_clipboard","1,13"
+add this image to clipboard history and show clipboard history,"clipboard.save_image_from_clipboard_and_copy_path,clipboard.add_imagepath_to_clipboard_history,clipboard.display_clipboard_history","8,9,3"

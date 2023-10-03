@@ -32,10 +32,6 @@ import warnings
 warnings.filterwarnings("ignore")
 
 
-# In[ ]:
-
-
-
 device_info = sd.query_devices(sd.default.device[0], 'input')
 samplerate = int(device_info['default_samplerate'])
 
@@ -56,7 +52,6 @@ def recordCallback(indata, frames, time, status):
     if status:
         print(status, file=sys.stderr)
     q.put(bytes(indata))
-    
 
 model = Model(tr_model_path)
 recognizer = KaldiRecognizer(model, samplerate)
@@ -76,12 +71,13 @@ try:
 
                 if recognized_text:
                     print(recognizerResult)
-                    
-                    for asname in synames:    
+
+
+                    for asname in synames:
                         if asname in recognized_text:
                             recognized_text = recognized_text.replace(asname,"")
                             notification(username+ ": " + recognized_text)
-                            action = classify(recognized_text.lower())  
+                            action = classify(recognized_text.lower())
                             try:
                                 print(action)
                                 actions_to_execute = action.split(',')
@@ -117,7 +113,6 @@ except Exception as e:
     print(str(e))
 
 
-# In[ ]:
 
 
 
