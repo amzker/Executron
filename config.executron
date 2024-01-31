@@ -1,12 +1,11 @@
 [Default]
 username = amzker
-asistant_name = paper
-synames = ["paper","pepper","papar","peppar","papper"]
+assistant_name = Executron
+synames = ["Executron","Exe-cu-tron","Ex-ec-u-tron","Exe-tron","E-tron"]
 
 tr_model_path = ./modules/vosk/vosk-model-en-us-0.22
 screenshot_dir = ./screenshots/
 modules_dir = modules
-
 
 codegrepper_title_url = https://www.codegrepper.com/api/search.php?q=
 codegrepper_title_q = &search_options=search_titles

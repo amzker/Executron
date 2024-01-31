@@ -12,7 +12,7 @@ import signal
 import json
 import configparser
 config = configparser.ConfigParser()
-config.read("config.paper")
+config.read("config.executron")
 tr_model_path = config.get('Default', 'tr_model_path')
 username = config.get('Default', 'username')
 asistant_name = config.get('Default', 'asistant_name')

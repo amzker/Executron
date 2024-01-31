@@ -5,7 +5,7 @@ import configparser
 from .notification import notification
 
 config = configparser.ConfigParser()
-config.read("config.paper")
+config.read("config.executron")
 
 google_qurl = config.get("Default", "google_qurl")
 gimage_reverse_url = config.get("Default", "gimage_reverse_url")

@@ -2,20 +2,21 @@ import pandas as pd
 import pyperclip
 import webbrowser
 from .browser import google_search
-from .notification import notification 
+from .notification import notification
 import requests
 import urllib.parse as parser
 from urllib.request import urlopen
+import importlib
 
 import configparser
+
 config = configparser.ConfigParser()
-config.read("config.paper")
+config.read("config.executron")
 
-
-codegrepper_title_url = config.get("Default","codegrepper_title_url")
-codegrepper_title_q = config.get("Default","codegrepper_title_q")
-codegrepper_alt_term_url = config.get("Default","codegrepper_alt_term_url")
-google_qurl = config.get("Default","google_qurl")
+codegrepper_title_url = config.get("Default", "codegrepper_title_url")
+codegrepper_title_q = config.get("Default", "codegrepper_title_q")
+codegrepper_alt_term_url = config.get("Default", "codegrepper_alt_term_url")
+google_qurl = config.get("Default", "google_qurl")
 
 
 def sort_answers(data):
@@ -23,19 +24,23 @@ def sort_answers(data):
     df.sort_values(by="upvotes", ascending=False, inplace=True, ignore_index=True)
     return df["answer"].iloc[0]
 
+
 def sort_alternative_terms(data):
     df = pd.DataFrame(data)
     df.sort_values(by="score", ascending=False, inplace=True, ignore_index=True)
     return df["term"].iloc[0]
 
+
 def copy_to_clipboard(code):
     pyperclip.copy(code)
     notification("Code copied to clipboard")
+
 
 def search_google(term):
     search = parser.quote(term)
     webbrowser.open(google_qurl + search)
     notification("Couldn't find any code, so searching on Google")
+
 
 def codesearch(term):
     term = term.replace("search", "")
@@ -59,14 +64,14 @@ def codesearch(term):
 
             if not title_data:
                 search_google(alt_data)
-                return None  
+                return None
             else:
                 code = sort_answers(title_data)
-                return code  
+                return code
         else:
             google_search(term)
-            notification("didnt find code, so googling")
-            return None  
+            notification("Didn't find code, so googling")
+            return None
     else:
         code = sort_answers(title_data)
-        return code  
+        return code
