@@ -1,9 +1,12 @@
-# Paper - Your Personal AI Assistant
+# Paper: Your Personal AI Assistant
 
 ![Paper Logo](paper_logo.png)
 
 Paper is a personal assistant powered by machine learning (ML) algorithms designed to make your daily tasks more efficient and assist you in various ways. It's a versatile tool that's under active development, with a range of features designed to enhance your productivity.
 
+
+## how it works
+![image](https://github.com/amzker/Paper/assets/35922655/efac041e-cc96-4b16-9d4e-1429fe66cea6)
 ## Current Features
 
 ### Code Search
