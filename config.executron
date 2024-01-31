@@ -3,7 +3,7 @@ username = amzker
 assistant_name = Executron
 synames = ["Executron","Exe-cu-tron","Ex-ec-u-tron","Exe-tron","E-tron"]
 
-tr_model_path = ./modules/vosk/vosk-model-en-us-0.22
+tr_model_path = ./modules/vosk/vosk-model-small-en-us-0.15
 screenshot_dir = ./screenshots/
 modules_dir = modules
 

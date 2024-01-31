@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 import json
@@ -47,8 +47,8 @@ def nmpredict(raw_text, word_to_index, model, max_input_size):
     predictions = make_predictions(input_tokens, model)
     mappings = pd.read_csv(mapping_filename)
     mapping_dict = mappings.set_index("mapping")["commands"].to_dict()
-    predicted_commands = [", ".join([mapping_dict[pred] for pred in prediction if pred in mapping_dict]) for prediction in predictions]
-    print(predicted_commands)
+    predicted_commands = [",".join([mapping_dict[pred] for pred in prediction if pred in mapping_dict]) for prediction in predictions]
+    return predicted_commands
 
 word_to_index = load_word_to_index(word_index_file)
 max_input_size = load_max_input_size(max_tokens_file)
@@ -196,5 +196,6 @@ print("MODEL CONFIGURAION LOADED")
 
 
 def classify(input_sentence):
-    nmpredict(input_sentence,word_to_index, model, max_input_size)
+    predictions = nmpredict(input_sentence,word_to_index, model, max_input_size)
+    return predictions
 
