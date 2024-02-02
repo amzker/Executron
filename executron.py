@@ -102,6 +102,7 @@ if args.text:
         # Use text input
             text_input = input("Enter your text command: ")
             action = classify(text_input.lower())
+            print(action)
             actions_to_execute = action[0].split(',')
             previous_output = None
 

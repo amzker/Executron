@@ -21,6 +21,7 @@ def capture_screenshot():
         screenshot_image.save(full_path)
         notification(f"Screenshot saved at: {full_path}\nImage copied to clipboard")
         return full_path
+    
     except Exception as e:
         notification(f"Error capturing screenshot: {e}")
 
